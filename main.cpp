@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include "Gibbs.h"
+#include "mathfunctions.h"
 
 int main() {
   if ( !glfwInit() ) {
@@ -52,11 +53,17 @@ int main() {
   }
 
   glfwTerminate();
-
-  vector<double> r1 = { 0,0,0 };
-  vector<double> r2 = { 0,0,0 };
+  // testing
+  vector<double> r1 = { 1,1,1 };
+  vector<double> r2 = { 1,1,1 };
   vector<double> r3 = { 0,0,0 };
-  double v2 = velocityMag2(r1, r2, r3);
-  cout << "velocity 2: " << v2 << endl;
+  //double normr1 = *norm(r1);
+  vector<double> r1r2 = GibbsV2(r1, r2, r3);
+  
+  //vector<double> r1r2 = *addvectors(r1, r2);
+
+  //cout << "vector test:" << r1[0] << r1r2[1] << r1r2[2] << endl;
+  cout << "help " << r1r2[1] << endl;
+  //end testing
   return 0;
 }
