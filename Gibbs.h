@@ -5,35 +5,36 @@
 #include <iostream>
 #include <vector>
 #include "mathfunctions.h"
+#include <Eigen/Dense>
 
 using namespace std;
+using Eigen::MatrixXd;
+using Eigen::Vector3d;
 
 #ifndef Gibbs 
 #define Gibbs
 
 
-vector<double> GibbsV2( vector<double>& r1v, vector<double>& r2v, vector<double>& r3v) {
-	
-	double velocityMag2 = 0.0;
-	//norms
-	double norm1 = norm(r1v);
-	double norm2 = norm(r2v);
-	double norm3 = norm(r3v);
-	//crosses
-	vector<double> cross23= cross(r2v, r3v);
-	vector<double> cross12 = cross(r1v, r2v);
-	vector<double> cross31 = cross(r3v, r1v);
-	//vectors and scalars for calc of v2
-	vector<double> n1 = scalarxvector(norm1,cross23);
-	vector<double> n2 = scalarxvector(norm2, cross31);
-	vector<double> n3 = scalarxvector(norm3, cross12);
-	vector<double> n12 = addvectors(n1, n2);
-	//n
-	vector<double> n = addvectors(n12, n3);
+Vector3d GibbsV2(double& mu, Vector3d& r1v, Vector3d& r2v, Vector3d& r3v) {
 
+	Vector3d n = r1v.norm() * r2v.cross(r3v) + r2v.norm() * r3v.cross(r1v) + r3v.norm() * r1v.cross(r2v);
+	Vector3d d = r1v.cross(r2v) + r2v.cross(r3v) + r3v.cross(r1v);
+	Vector3d s = (r2v.norm() - r3v.norm()) * r1v + (r3v.norm() - r1v.norm()) * r2v + (r1v.norm() - r2v.norm()) * r3v;
+	Vector3d VelocityVec2 = sqrt(mu / (n.norm() * d.norm())) * ((d.cross(r2v) / r2v.norm()) + s);
 
-	cout << "help " << n[1] << endl;
-	return n;
+	Vector3d test = r1v.norm() * r2v.cross(r3v) + r2v.norm() * r3v.cross(r1v); //* r2v.cross(r3v);
+
+	cout << "test " << test << endl;
+
+	return VelocityVec2;
+}
+void test() {
+	MatrixXd m(2, 2);
+	m(0, 0) = 3;
+	m(1, 0) = 2.5;
+	m(0, 1) = -1;
+	m(1, 1) = m(1, 0) + m(0, 1);
+	cout << m << endl;
 }
 //vector<double> cross23 = cross(r2v,r3v);
 

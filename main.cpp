@@ -4,6 +4,9 @@
 #include <iostream>
 #include "Gibbs.h"
 #include "mathfunctions.h"
+#include <Eigen/Dense>
+
+using Eigen::Vector3d;
 
 int main() {
   if ( !glfwInit() ) {
@@ -54,16 +57,18 @@ int main() {
 
   glfwTerminate();
   // testing
-  vector<double> r1 = { 1,1,1 };
-  vector<double> r2 = { 1,1,1 };
-  vector<double> r3 = { 0,0,0 };
+  Vector3d r1(3457.9, 456.5, -6006.4);
+  Vector3d r2(3482.6, 479.0, -5990.6);
+  Vector3d r3(3507.3, 501.5, -5974.6);
   //double normr1 = *norm(r1);
-  vector<double> r1r2 = GibbsV2(r1, r2, r3);
+
+  double mu = 3.986E5;
+  Vector3d n = GibbsV2(mu, r1, r2, r3);
   
   //vector<double> r1r2 = *addvectors(r1, r2);
 
   //cout << "vector test:" << r1[0] << r1r2[1] << r1r2[2] << endl;
-  cout << "help " << r1r2[1] << endl;
+  cout << "help " << n << endl;
   //end testing
   return 0;
 }
