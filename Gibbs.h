@@ -13,9 +13,10 @@ using Eigen::Vector3d;
 
 #ifndef Gibbs 
 #define Gibbs
+extern double mu;
 
 
-Vector3d GibbsV2(double& mu, Vector3d& r1v, Vector3d& r2v, Vector3d& r3v) {
+Vector3d GibbsV2( Vector3d& r1v, Vector3d& r2v, Vector3d& r3v) {
 
 	Vector3d n = r1v.norm() * r2v.cross(r3v) + r2v.norm() * r3v.cross(r1v) + r3v.norm() * r1v.cross(r2v);
 	Vector3d d = r1v.cross(r2v) + r2v.cross(r3v) + r3v.cross(r1v);
