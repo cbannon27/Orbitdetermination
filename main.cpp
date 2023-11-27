@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include "Gibbs.h"
+#include "Gauss.h"
 #include "OrbitalElementsFromr2vr2.h"
 #include <Eigen/Dense>
 
@@ -15,6 +16,13 @@ int main() {
     std::cerr << "Failed to initialize GLFW" << std::endl;
     return -1;
   }
+
+  // Prompt the user for input
+  double r2x, r2y, r2z, v2x, v2y, v2z;
+  std::cout << "Enter the x, y, z components of r2 (separated by spaces): ";
+  std::cin >> r2x >> r2y >> r2z;
+  std::cout << "Enter the x, y, z components of v2 (separated by spaces): ";
+  std::cin >> v2x >> v2y >> v2z;
 
   GLFWwindow* window = glfwCreateWindow( 1500, 1500, "Orbit in Perifocal Frame", NULL, NULL );
   if ( !window ) {
@@ -33,10 +41,9 @@ int main() {
   glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
   //trajectory points and inputs testing
   Vector3d r1(3457.9, 456.5, -6006.4);
-  Vector3d r2(-9.169050298094448e+02, 4.050896256245320e+03, 1.434684965708947e+04);
+  Vector3d r2(r2x, r2y, r2z);
   Vector3d r3(3507.3, 501.5, -5974.6);
-  double mu = 3.986E5;
-  Vector3d v2(-3.399213191633871, -2.334062343322431, 0.140908762431397);
+  Vector3d v2(v2x, v2y, v2z);
   
   MatrixXd testt = orbitTrajectoryPoints(r2, v2);
   float maxVal = testt(180, 0) * 1.2;
