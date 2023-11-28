@@ -16,6 +16,6 @@ add_definitions(-DGLEW_STATIC) # static linking for glew only
 set(GL_STATIC_LIBRARIES "${CMAKE_SOURCE_DIR}/lib/glew32sd.lib;${CMAKE_SOURCE_DIR}/lib/glfw3.lib")
 # set(GL_DYNAMIC_LIBRARIES "${CMAKE_SOURCE_DIR}/lib/glew32d.lib;${CMAKE_SOURCE_DIR}/lib/glfw3.lib")
 
-add_executable(${PROJECT_NAME} main.cpp) 
+add_executable(${PROJECT_NAME} main.cpp "OrbitFromAE (2).h") 
 target_link_libraries(${PROJECT_NAME} ${OPENGL_gl_LIBRARY} ${GL_STATIC_LIBRARIES}
 )
